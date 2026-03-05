@@ -1,6 +1,15 @@
 # Status
 
-So far this just installs the `gitlab-common` package.  More to follow.
+This role should install the `gitlab` package, when that package is available
+in the Debian fasttrack and/or backports-staging repo corresponding to the
+current release.
+
+2026-03-04:  Currently the package is not available for the `trixie` (stable).
+This role may work if deployed to a host still running `bookworm` (oldstable).
+I explored the option of adjusting apt pin priorities and allowing installation
+of packages from oldstable, but major packages like `libssl` would need to be
+downgraded, breaking other dependencies.
+
 
 # BUGS
 

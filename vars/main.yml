@@ -1,2 +1,10 @@
+# Debian fasttrack is a mess.  This package should fix pin priorities to allow
+# gitlab dependencies to be installed from various release names.  Specifying a
+# release name at install time for gitlab does not work, because gitlab is in
+# bookworm-fasttrack but many dependencies are in bookworm-backports-staging.
+#
+# ... This doesn't work, either, for bookworm-fasttrack on excalibur (trixie).
+install_packages_first:
+  - 'gitlab-apt-pin-preferences'
 install_packages:
-  - 'gitlab-common'
+  - 'gitlab'
