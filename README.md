@@ -1,23 +1,22 @@
 # Status
 
-This role should install the `gitlab` package, when that package is available
-in the Debian fasttrack and/or backports-staging repo corresponding to the
-current release.
+Currently this role installs the package but does not apply any configuration or start any services.
 
-2026-03-04:  Currently the package is not available for the `trixie` (stable).
-This role may work if deployed to a host still running `bookworm` (oldstable).
-I explored the option of adjusting apt pin priorities and allowing installation
-of packages from oldstable, but major packages like `libssl` would need to be
-downgraded, breaking other dependencies.
+# To Do
 
+* Integrate with nginx.
+* Configure details like hostname, as mentioned in the official instructions.
+* Document post install steps like setting a root password.  (Gitlab root, not system root.)
+* Choose a server and assign it the gitlab role.
+* Configure backup for the chosen gitlab server.
 
-# BUGS
+# Description
 
-This role needs the platform role `debian-fasttrack` to make the
-`gitlab-common` package available.  Currently platform roles must be declared
-in host variables.  Ideally, this role would depend on `debian-fasttrack`, but
-unless the host variables declare all the platform roles, repo configuration
-may not be updated correctly during major OS upgrades.  For the moment, this
-role should simply fail unless `debian-fasttrack` is declared as a platform
-role in the relevant host variables.  (Platform roles are expected to be pulled
-in by `automatic-updates`, not deployed alone.)
+This package installs gitlab, specifically the Community Edition (not
+Enterprise Edition), from the gitlab.com repo, to a Debian host.
+
+[Official
+instructions](https://docs.gitlab.com/install/package/debian/?tab=Community+Edition)
+link to an [installation
+script](https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh) which seems to pull from the web both [apt configuration (trixie linked)](https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/config_file.list?os=debian&dist=trixie&source=script) and a [package signing key](https://packages.gitlab.com/gitlab/gitlab-ce/gpgkey).  This role should configure that repo without the need to run that script.
+

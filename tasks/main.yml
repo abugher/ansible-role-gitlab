@@ -1,5 +1,7 @@
-
-- include_tasks:                'tasks/common/install_packages.yml'
-  vars:
-    install_packages:           "{{ install_packages_first }}"
+---
+- include_tasks:                'tasks/common/install_files.yml'
+- include_tasks:                'tasks/common/template_files.yml'
+- include_tasks:                'tasks/common/apt_update.yml'
+  when:                         install_files_result.changed
+                                or template_files_result.changed
 - include_tasks:                'tasks/common/install_packages.yml'
